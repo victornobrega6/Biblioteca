@@ -4,6 +4,7 @@ import { User } from '../models/userModel';
 
 export class UserRepository {
   private pool: Pool = pool;
+<<<<<<< HEAD
 
   async getUserByEmail(email: string): Promise<User | null> {
     const { rows } = await this.pool.query('SELECT * FROM users WHERE email = $1', [email]);
@@ -13,6 +14,26 @@ export class UserRepository {
   async addUser(name: string, email: string, passwordHash: string): Promise<User> {
     const query = 'INSERT INTO users (name, email, passwordHash) VALUES ($1, $2, $3) RETURNING *';
     const { rows } = await this.pool.query(query, [name, email, passwordHash]);
+=======
+  
+  async getUserByEmail(email: string): Promise<User | null> {
+    const { rows } = await this.pool.query(
+      "SELECT email FROM users WHERE email = $1",
+      [email],
+    );
+    return rows[0] || null;
+  }
+
+  async getAllUsers():
+    Promise<User[]> {
+      const { rows } = await this.pool.query('SELECT id,name,email,passwordhash FROM users');
+      return rows;
+  }
+
+  async addUser(name: string, email: string, passwordhash: string): Promise<User> {
+    const query = 'INSERT INTO users (name, email, passwordhash) VALUES ($1, $2, $3) RETURNING *';
+    const { rows } = await this.pool.query(query, [name, email, passwordhash]);
+>>>>>>> dc75fa3 (refactor: mudança de código)
     return rows[0];
   }
 }

@@ -6,7 +6,11 @@ export class BookRepository {
   private pool: Pool = pool;
 
   async getAllBooks(): Promise<Book[]> {
+<<<<<<< HEAD
     const { rows } = await this.pool.query('SELECT * FROM books');
+=======
+    const { rows } = await this.pool.query('SELECT id, title, author, price FROM books');
+>>>>>>> dc75fa3 (refactor: mudança de código)
     return rows;
   }
 
